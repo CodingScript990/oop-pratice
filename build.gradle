@@ -10,8 +10,12 @@ repositories {
 }
 
 dependencies {
+    // JUnit 5 의존성
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+
+    // AssertJ 의존성
+    testImplementation 'org.assertj:assertj-core:3.23.1'
 }
 
 test {
