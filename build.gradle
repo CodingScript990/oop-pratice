@@ -10,9 +10,15 @@ repositories {
 }
 
 dependencies {
+    // implementation : 구현하고자 하는 것(불러온다는 의미 - 사용하기 위해서)
+    // Java 라이브러리 - passay
+    implementation 'org.passay:passay:1.6.1'
+
     // JUnit 5 의존성
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    // JUnit 5 -> jupiter-params 의존성
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.8.2'
 
     // AssertJ 의존성
     testImplementation 'org.assertj:assertj-core:3.23.1'
