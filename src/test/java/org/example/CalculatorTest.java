@@ -2,6 +2,7 @@ package org.example;
 
 import org.example.calculator.Calculator;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -61,7 +62,7 @@ public class CalculatorTest {
         // 1. int calculateResult : 정수형 상태를 가진 변수를 생성하여
         // 2. Calculator Class 안에 calculate Method 속성을 이용하는데
         // 3. calculate 속성에 사용될 매개변수를 넣고
-        // 4.
+        // 4. calculate 결과 값들이 피연산자1,2 연산자가 잘 출력이 되도록 체크해줌(유효성 검사)
         int calculateResult = Calculator.calculate(operand1, operator, operand2);
         // assertThat : calculateResult parameter 값들을 비교하고자 할때 사용!
         // isEqualTo : result 값과 calculateResult 값을 비교하여 같은지 체크!
@@ -130,5 +131,12 @@ public class CalculatorTest {
                 arguments(2, "*", 2, 4),
                 arguments(6, "/", 2, 3)
         );
+    }
+
+    //
+    @DisplayName("")
+    @Test
+    void calculateExceptionTest() {
+
     }
 }
