@@ -110,6 +110,7 @@ public enum ArithmeticOperator {
         }
     }, // 추상 메소드를 사용하기 위해서 구현체를 형성해줘야 함! 즉, 추상메소드를 사용하기 위해서 환경을 맞춰준다고 생각하면 됨
     DIVISION("/") {
+        // 1-2. ArithmeticOperator enum 에서 작업함
         @Override
         public int arithmeticCalculate(int operand1, int operand2) {
             return operand1 / operand2;

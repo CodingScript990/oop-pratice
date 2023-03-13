@@ -12,9 +12,15 @@ public class MultiplicationOperator implements NewArithmeticOperator {
     }
 
     // Override -> int supports method(operand1,2 유효성 Test)
+//    @Override
+//    public int calculate(int operand1, int operand2) {
+
+    // 양수인지 체크하기 위한 과정 -> 구현체 모두에 적용함! [+, -, *, /] 에 적용!
+    // Override -> PositiveNumber supports method(operand1,2 유효성 Test -> 양수인지 아닌지)
     @Override
-    public int calculate(int operand1, int operand2) {
+    public int calculate(PositiveNumber operand1, PositiveNumber operand2) {
+
         // operand1,2 가 addition operator 가 되도록 설정해주고 값을 반환해줌
-        return operand1 * operand2;
+        return operand1.toInt() * operand2.toInt();
     }
 }

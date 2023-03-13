@@ -14,7 +14,20 @@ public class Calculator {
     // operand1, operand2 -> 피연산자!
     // operator -> 연산자!
     // operand1 +(operator) operand2 -> 이런식으로 사용하겠다는 것을 보여줌
-    public static int calculate(int operand1, String operator, int operand2) {
+
+    /**
+     * before -> int type 으로 operand1,2 를 이용했지만, 양수에 대한 예외처리를 해주지 않음!
+
+     * public static int calculate(int operand1, String operator, int operand2) {
+     */
+
+    /**
+     * after -> int type 에서 PositiveNumber Class 를 활용하면서 양수일때는 Object 가 생성이 되고, 그렇지 않고 0 pr 음수일 경우 예외처리가 될 수 있도록 PositiveNumber Type 형태로 operand1,2 에게 설정해서 양수인지 아닌지를 체크해줌
+     * 각 구현체들 [+, -, *, /]에도 PositiveNumber Type 으로 환경을 맞춰줌! -> 양수인지 체크를 위함!
+     */
+
+    public static int calculate(PositiveNumber operand1, String operator, PositiveNumber operand2) {
+
         // 2. if 조건문에서 연산자가 해당되면, 결과물을 실행하라 -> 리팩토링 잘됨!
         // + 연산자 일때
         /**

@@ -1,6 +1,7 @@
-package org.example;
+package org.example.calculator;
 
 import org.example.calculator.Calculator;
+import org.example.calculator.operator.PositiveNumber;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -10,6 +11,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 /**
@@ -63,7 +65,7 @@ public class CalculatorTest {
         // 2. Calculator Class 안에 calculate Method 속성을 이용하는데
         // 3. calculate 속성에 사용될 매개변수를 넣고
         // 4. calculate 결과 값들이 피연산자1,2 연산자가 잘 출력이 되도록 체크해줌(유효성 검사)
-        int calculateResult = Calculator.calculate(operand1, operator, operand2);
+        int calculateResult = Calculator.calculate(new PositiveNumber(operand1), operator, new PositiveNumber(operand2));
         // assertThat : calculateResult parameter 값들을 비교하고자 할때 사용!
         // isEqualTo : result 값과 calculateResult 값을 비교하여 같은지 체크!
         assertThat(calculateResult).isEqualTo(result);
@@ -133,10 +135,30 @@ public class CalculatorTest {
         );
     }
 
-    //
-    @DisplayName("")
+    // 3. PositiveNumber 에서 이미 0 이 될 수 없는 예외처리를 하였기에 TestCode 를 할 필요가 없으므로 제거해줌!
+    // 나눗셈에서 0을 나누는 경우 예외를 발생시키는 작업
+    @DisplayName("나눗셈에서 0을 나누는 경우 IllegalArgument 예외를 발생시킨다.")
     @Test
     void calculateExceptionTest() {
-
+        // Calculator Class 에서 calculate method 속성 중 나눗셈 연산자 사용!
+        // assertThatCode : calculateResult parameter 값들을 비교하고자 할때 사용!
+        // 1. calculate method 에서 에러가남! -> Why?
+        // 1-2. DivisionOperator Class 에서 에러사항을 수정작업해서 결과물이 정상 작동 되도록 하는 방법
+        // 1-2. ArithmeticOperator enum 에서 Division 에서 return 값에서 수정 작업해주는 방법
+        // 2. PositiveNumber 을 가지고 양수인지 아닌지 체크하는 작업 후 int type 까지 변환 후 결과물 실행!
+        // 2-1. 에러난 이유는 PositiveNumber Type 으로 변환 해줌
+        // 2-2. 에러 메세지가 나온 이유는 PositiveNumber 에서 validate method 에 설정한 value 값이 해당되기에 Output 으로 메세지가 출력되는 것임!
+        // 2-3. 그래서 결론은 DivisionOperator Class 에서 calculate method 안에서 예외처리를 해주는 작업을 해줄 필요가 없기에 제거 해줌! -> why? 이유는 PositiveNumber 에서 예외처리를 해주기 때문임
+        assertThatCode(() -> Calculator.calculate(new PositiveNumber(10), "/", new PositiveNumber(0)))
+                /**
+                 * isInstanceOf
+                    - Object Type 을 확인하는 연산자임
+                    - 형변환 가능여부를 확인하며, True / False 로 결과를 반환함
+                    - 주로 상속관계에 부모 Object 인지 자식 Object 인지 확인하는데 사용됨
+                 */
+                // isInstanceOf 는 IllegalArgumentException 에서 위의 Calculator 값이 올바르지 않으면 에러 메세지를 보여주는 역할을 해주거나, 일치하면 에러 메세지를 보여주지 않고, 정상 작동을 함!
+                .isInstanceOf(IllegalArgumentException.class)
+                //  hasMessage method 는 에러가 난다면 메세지를 Output 에 보여주는 역할을 하는 것임!(해당될때 실행됨!)
+                .hasMessage("0으로는 나눌 수 없습니다.");
     }
 }
